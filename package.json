@@ -12,6 +12,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",
+    "openweather-apis": "^4.4.1",
     "sharp": "^0.27.1",
     "twitter": "^1.7.1"
   }
