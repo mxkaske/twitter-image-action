@@ -8,6 +8,12 @@ const { colors, backgroundColors } = require("./constants");
 
 const currentUTC = Math.round(Date.now() / 1000);
 
+const randomProp = function (obj) {
+  var keys = Object.keys(obj);
+  return obj[keys[(keys.length * Math.random()) << 0]];
+};
+const randomColor = randomProp(colors);
+
 const client = new Twitter({
   consumer_key: process.env.apikey,
   consumer_secret: process.env.apikeysecret,
@@ -31,7 +37,7 @@ weather.getAllWeather(function (err, JSONObj) {
 //endregion
 
 // region manipulate svg
-const glasses = `.st13{fill:${colors.yellow};stroke:#000000;stroke-miterlimit:10;}`;
+const glasses = `.st13{fill:${randomColor};stroke:#000000;stroke-miterlimit:10;}`;
 const lens = `.st18{opacity:0.5;fill:${backgroundColors.dark};}`;
 
 let svgFile = fs.readFileSync("assets/max.svg", "utf8");
@@ -43,7 +49,7 @@ fs.writeFileSync("assets/max.svg", svgFile);
 // region export svg to png
 sharp("./assets/max.svg")
   .resize(400, 400)
-  .flatten({ background: backgroundColors.light })
+  .flatten({ background: backgroundColors.dark })
   .png()
   .toFile("./assets/max.jpg")
   .then(function (info) {
