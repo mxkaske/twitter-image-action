@@ -47,11 +47,13 @@ fs.writeFileSync("assets/max.svg", svgFile);
 // endregion
 
 // region export svg to png
+// async!!!
 sharp("./assets/max.svg")
   .resize(400, 400)
   .flatten({ background: backgroundColors.dark })
   .png()
-  .toFile("./assets/max.jpg")
+  .toFile("./assets/max.png")
+  //.toBuffer()
   .then(function (info) {
     //console.log(info);
   })
@@ -60,10 +62,18 @@ sharp("./assets/max.svg")
   });
 // endregion
 
+const image = fs.readFileSync("assets/max.png", "base64");
+
 // region update twitter
-client.get("account/verify_credentials", {}, function (error, tweet, response) {
-  if (!error) {
-    //console.log(tweet);
+client.post(
+  "account/update_profile_image",
+  { image },
+  function (error, tweet, response) {
+    if (!error) {
+      console.log(tweet);
+    } else {
+      console.log(error);
+    }
   }
-});
+);
 //endregion
