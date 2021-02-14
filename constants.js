@@ -1,5 +1,5 @@
 const backgroundColors = {
-  ligth: "#fdfffc",
+  light: "#fdfffc",
   dark: "#011627",
 };
 
