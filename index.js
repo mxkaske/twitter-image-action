@@ -13,18 +13,19 @@ const client = new Twitter({
 });
 
 // region manipulate svg
-const glasses = `.st13{fill:${colors.indigo};stroke:#000000;stroke-miterlimit:10;}`;
-const lens = `.st18{opacity:0.4;fill:${backgroundColors.dark};}`;
+const glasses = `.st13{fill:${colors.yellow};stroke:#000000;stroke-miterlimit:10;}`;
+const lens = `.st18{opacity:0.5;fill:${backgroundColors.dark};}`;
 
-const svgFile = fs.readFileSync("assets/max.svg", "utf8");
-svgFile.replace(/^.st13(.*)$/gm, "<h1>$1</h1");
-// fs.writeFileSync("assets/max.svg", svgFile);
+let svgFile = fs.readFileSync("assets/max.svg", "utf8");
+svgFile = svgFile.replace(/^.st13.*$/m, glasses);
+svgFile = svgFile.replace(/^.st18.*$/m, lens);
+fs.writeFileSync("assets/max.svg", svgFile);
 // endregion
 
 // region export svg to png
 sharp("./assets/max.svg")
   .resize(400, 400)
-  .flatten({ background: colors.dark })
+  .flatten({ background: backgroundColors.light })
   .png()
   .toFile("./assets/max.jpg")
   .then(function (info) {
