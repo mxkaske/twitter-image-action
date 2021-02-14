@@ -1,6 +1,7 @@
 const backgroundColors = {
   light: "#E0F2FE",
   dark: "#1C1917",
+  white: "#FFFFFF",
 };
 
 const colors = {
