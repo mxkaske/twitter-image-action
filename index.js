@@ -21,59 +21,46 @@ const client = new Twitter({
   access_token_secret: process.env.accesstokensecret,
 });
 
-// region get weather data
 weather.setCity("Berlin");
 weather.setAPPID(process.env.weatherapikey);
 weather.getAllWeather(function (err, JSONObj) {
-  // console.log(JSONObj);
   const {
     sys: { sunrise, sunset },
     clouds: { all },
   } = JSONObj;
+
   const light = sunrise < currentUTC && currentUTC < sunset;
   const clear = all < 20;
-  console.log({ light, clear });
-});
-//endregion
 
-// region manipulate svg
-const glasses = `.st13{fill:${randomColor};stroke:#000000;stroke-miterlimit:10;}`;
-const lens = `.st18{opacity:0.5;fill:${backgroundColors.dark};}`;
+  const glasses = `.st13{fill:${randomColor};stroke:#000000;stroke-miterlimit:10;}`;
+  const lens = `.st18{opacity:0.5;fill:${
+    clear ? backgroundColors.white : backgroundColors.dark
+  };}`;
 
-let svgFile = fs
-  .readFileSync("assets/max.svg", "utf8")
-  .replace(/^.st13.*$/m, glasses)
-  .replace(/^.st18.*$/m, lens);
-// endregion
+  let svgFile = fs
+    .readFileSync("assets/max.svg", "utf8")
+    .replace(/^.st13.*$/m, glasses)
+    .replace(/^.st18.*$/m, lens);
 
-// region export svg to png
-// async!!!
-sharp(Buffer.from(svgFile, "utf8"))
-  .resize(400, 400)
-  .flatten({ background: backgroundColors.dark })
-  .png()
-  .toFile("./assets/max.png")
-  //.toBuffer()
-  .then(function (info) {
-    //console.log(info);
-  })
-  .catch(function (err) {
-    //console.log(err);
-  });
-// endregion
-
-const image = fs.readFileSync("assets/max.png", "base64");
-
-// region update twitter
-client.post(
-  "account/update_profile_image",
-  { image },
-  function (error, tweet, response) {
-    if (!error) {
-      console.log(tweet);
-    } else {
+  sharp(Buffer.from(svgFile, "utf8"))
+    .resize(400, 400)
+    .flatten({
+      background: light ? backgroundColors.light : backgroundColors.dark,
+    })
+    .toBuffer()
+    .then(function (response) {
+      client.post(
+        "account/update_profile_image",
+        {
+          image: response.toString("base64"),
+        },
+        function (error, tweet, response) {
+          if (!error) console.log(tweet);
+          else console.log(error);
+        }
+      );
+    })
+    .catch(function (error) {
       console.log(error);
-    }
-  }
-);
-//endregion
+    });
+});
