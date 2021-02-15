@@ -40,15 +40,15 @@ weather.getAllWeather(function (err, JSONObj) {
 const glasses = `.st13{fill:${randomColor};stroke:#000000;stroke-miterlimit:10;}`;
 const lens = `.st18{opacity:0.5;fill:${backgroundColors.dark};}`;
 
-let svgFile = fs.readFileSync("assets/max.svg", "utf8");
-svgFile = svgFile.replace(/^.st13.*$/m, glasses);
-svgFile = svgFile.replace(/^.st18.*$/m, lens);
-fs.writeFileSync("assets/max.svg", svgFile);
+let svgFile = fs
+  .readFileSync("assets/max.svg", "utf8")
+  .replace(/^.st13.*$/m, glasses)
+  .replace(/^.st18.*$/m, lens);
 // endregion
 
 // region export svg to png
 // async!!!
-sharp("./assets/max.svg")
+sharp(Buffer.from(svgFile, "utf8"))
   .resize(400, 400)
   .flatten({ background: backgroundColors.dark })
   .png()
