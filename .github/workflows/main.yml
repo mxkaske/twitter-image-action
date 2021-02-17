@@ -15,6 +15,14 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org
+      - name: create env file
+        run: |
+          touch .env
+          echo APIKEY=${{ secrets.APIKEY }} >> .env
+          echo APIKEYSECRET=${{ secrets.APIKEYSECRET }} >> .env
+          echo ACCESSTOKEN=${{ secrets.ACCESSTOKEN }} >> .env
+          echo ACCESSTOKENSECRET=${{ secrets.ACCESSTOKENSECRET }} >> .env
+          echo WEATHERAPIKEY=${{ secrets.WEATHERAPIKEY }} >> .env
       - name: install
         run: npm install
       - name: run
