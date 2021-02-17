@@ -15,14 +15,14 @@ const randomProp = function (obj) {
 const randomColor = randomProp(colors);
 
 const client = new Twitter({
-  consumer_key: process.env.apikey,
-  consumer_secret: process.env.apikeysecret,
-  access_token_key: process.env.accesstoken,
-  access_token_secret: process.env.accesstokensecret,
+  consumer_key: process.env.APIKEY,
+  consumer_secret: process.env.APIKEYSECRET,
+  access_token_key: process.env.ACCESSTOKEN,
+  access_token_secret: process.env.ACCESSTOKENSECRET,
 });
 
 weather.setCity("Berlin");
-weather.setAPPID(process.env.weatherapikey);
+weather.setAPPID(process.env.WEATHERAPIKEY);
 weather.getAllWeather(function (err, JSONObj) {
   const {
     sys: { sunrise, sunset },
