@@ -1,0 +1,21 @@
+name: main
+on:
+  schedule:
+    - cron: "0 */2 * * *"
+
+jobs:
+  twitter:
+    name: Upload new Twitter Profile
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org
+      - name: install
+        run: npm install
+      - name: run
+        run: node index.js
