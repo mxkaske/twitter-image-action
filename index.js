@@ -34,7 +34,7 @@ weather.getAllWeather(function (err, JSONObj) {
 
   const glasses = `.st13{fill:${randomColor};stroke:#000000;stroke-miterlimit:10;}`;
   const lens = `.st18{opacity:0.5;fill:${
-    clear ? backgroundColors.white : backgroundColors.dark
+    clear ? backgroundColors.dark : backgroundColors.white
   };}`;
 
   let svgFile = fs
