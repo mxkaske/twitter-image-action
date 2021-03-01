@@ -75,6 +75,7 @@ weather.getAllWeather(function (err, JSONObj) {
     .flatten({
       background: backgroundColor,
     })
+    .toBuffer()
     .then(function (response) {
       client.post(
         "account/update_profile_banner",
