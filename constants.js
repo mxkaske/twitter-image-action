@@ -2,19 +2,18 @@ const backgroundColors = {
   light: "#E0F2FE",
   dark: "#1C1917",
   white: "#FFFFFF",
+  yellow: "#fde047",
 };
 
 const colors = {
   indigo: "#4f46e5",
-  yellow: "#fde047",
-  teal: "#0D9488",
+  teal: "#14B8A6",
   pink: "#DB2777",
-  green: "#16A34A",
   purple: "#9333EA",
-  orange: "#EA580C",
+  orange: "#F97316",
   red: "#DC2626",
-  lime: "#65A30D",
-  lightBlue: "#0284C7",
+  lime: "#84CC16",
+  lightBlue: "#38BDF8",
 };
 
 module.exports = { colors, backgroundColors };
