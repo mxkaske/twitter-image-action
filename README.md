@@ -9,3 +9,4 @@ Depending on the response of the openweathermap-API, `index.js` changes
 - background color to light or dark if the current time is between or outside sunset/-rise
 
 in `assets/max.svg` and calls the Twitter-API to update the profile.
+
